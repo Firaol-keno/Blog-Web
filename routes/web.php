@@ -6,6 +6,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\SigninController;
 use App\Http\Controllers\SignupController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\PostController;
 
 //Route::get('/', function () {
    //return view('welcome')
@@ -26,7 +27,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/dashboard/add-post', [DashboardController::class, 'addPost'])->name('dashboard.add-post');
     Route::get('/dashboard/manage-posts', [DashboardController::class, 'managePosts'])->name('dashboard.manage-posts');
     Route::get('/dashboard/add-user', [DashboardController::class, 'addUser'])->name('dashboard.add-user')->middleware('is_admin');
-    Route::get('/dashboard/manage-users', [DashboardController::class, 'manageUsers'])->name('dashboard.manage-users')->middleware('is_admin');
+    Route::get('/dashboard/manage-users', [DashboardController::class, 'manageUsers'])->name('dashboard.manage-users');
     Route::get('/dashboard/add-category', [DashboardController::class, 'addCategory'])->name('dashboard.add-category');
     Route::get('/dashboard/manage-categories', [DashboardController::class, 'manageCategories'])->name('dashboard.manage-categories')->middleware('is_admin');
 });
@@ -46,6 +47,11 @@ Route::get('/blog', function () {
     return view('blog');
 })->name('blog');
 
+
+// routes/web.php
+
+Route::get('/posts/create', [PostController::class, 'create'])->name('posts.create');
+Route::post('/posts', [PostController::class, 'store'])->name('posts.store');
 
 
 

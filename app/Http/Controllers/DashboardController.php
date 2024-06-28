@@ -33,8 +33,9 @@ class DashboardController extends Controller
     public function manageUsers()
     {
         // Fetch users for admin
-        $users = User::all();
-        return view('dashboard.manage-users', compact('users'));
+        //$users = User::all();
+       // return view('dashboard.manage-users', compact('users'));
+       return view('dashboard.manage-users');
     }
 
     public function addCategory()
@@ -44,7 +45,8 @@ class DashboardController extends Controller
 
     public function manageCategories()
     {
-        $categories = Category::all();
-        return view('dashboard.manage-categories', compact('categories'));
+        //$categories = Category::all();
+        //return view('dashboard.manage-categories', compact('categories'));
+        return view('dashboard.manage-categories');
     }
 }
