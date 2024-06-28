@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layout')
 
 @section('content')
 <div class="container dashboard__container">
@@ -38,32 +38,39 @@
     </aside>
     <main>
         <h2>Manage Posts</h2>
-        @if($posts->count() > 0)
-        <table>
-            <thead>
-                <tr>
-                    <th>Title</th>
-                    <th>Category</th>
-                    <th>Edit</th>
-                    <th>Delete</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach($posts as $post)
-                <tr>
-                    <td>{{ $post->title }}</td>
-                    <td>{{ $post->category->title }}</td>
-                    <td><a href="{{ url('/dashboard/edit-post', $post->id) }}" class="btn sm">Edit</a></td>
-                    <td><a href="{{ url('/dashboard/delete-post', $post->id) }}" class="btn sm danger">Delete</a></td>
-                </tr>
-                @endforeach
-            </tbody>
-        </table>
-        @else
-        <div class="alert__message error">
-            <p>No posts found.</p>
-        </div>
-        @endif
+       <table>
+        <thead>
+          <tr>
+            <th>Title</th>
+            <th>Category</th>
+            <th>Edit</th>
+            <th>Delete</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>bla bla bla bla bla bla bla bla </td>
+            <td>Wild Life</td>
+            <td><a href="editPost.html" class="btn sm">Edit</a></td>
+            <td><a href="deleteCategory.html" class="btn sm danger">
+             Delete</a></td>
+          </tr>
+          <tr>
+            <td>la la la la la la la la la la la ala</td>
+            <td>Wild Life</td>
+            <td><a href="editPost.html" class="btn sm">Edit</a></td>
+            <td><a href="deleteCategory.html" class="btn sm danger">
+             Delete</a></td>
+          </tr> 
+          <tr>
+            <td>la la la la la la la la la la la ala</td>
+            <td>Wild Life</td>
+            <td><a href="editPost.html" class="btn sm">Edit</a></td>
+            <td><a href="deleteCategory.html" class="btn sm danger">
+             Delete</a></td>
+          </tr>                    
+        </tbody>
+      </table>
     </main>
 </div>
 @endsection

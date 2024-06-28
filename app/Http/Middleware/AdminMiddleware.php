@@ -9,10 +9,10 @@ class AdminMiddleware
 {
     public function handle(Request $request, Closure $next)
     {
-        if (Auth::check() && Auth::user()->is_admin) {
-            return $next($request);
+        if (!Auth::user()->is_admin) {
+            return redirect('/dashboard')->with('message', ['type' => 'error', 'content' => 'Access denied']);
         }
 
-        return redirect()->route('home')->with('error', 'Access denied.');
+        return $next($request);
     }
 }
