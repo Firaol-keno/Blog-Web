@@ -9,7 +9,8 @@ class CreatePostsTable extends Migration
     {
         Schema::create('posts', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained('profile')->onDelete('cascade'); // Reference 'profile' table
+            $table->foreignId('user_id')->constrained('profile')->onDelete('cascade');
+            $table->foreignId('category_id')->nullable()->constrained('categories')->onDelete('set null');
             $table->string('title');
             $table->text('body');
             $table->boolean('is_featured')->default(false);

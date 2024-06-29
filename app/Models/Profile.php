@@ -33,4 +33,9 @@ class Profile extends Model implements Authenticatable
         'email_verified_at' => 'datetime',
         'is_admin' => 'boolean',
     ];
+
+    public function posts()
+    {
+        return $this->hasMany(Post::class);
+    }
 }

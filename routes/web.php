@@ -7,12 +7,18 @@ use App\Http\Controllers\SigninController;
 use App\Http\Controllers\SignupController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\PostController;
-
+use App\Http\Controllers\CategoryController;
 //Route::get('/', function () {
    //return view('welcome')
 //});
 
-Route::get('/', [HomeController::class, 'index']);
+Route::get('/', [PageController::class, 'index']);
+
+
+Route::get('/', [PostController::class, 'index']);
+Route::get('/post/{id}', [PostController::class, 'show']);
+Route::get('/categoryPosts/{id}', [CategoryController::class, 'show']);
+
 
 Route::get('/signin', [SigninController::class, 'index'])->name('signin');
 Route::post('/signin', [SigninController::class, 'login']);
@@ -54,6 +60,8 @@ Route::get('/posts/create', [PostController::class, 'create'])->name('posts.crea
 Route::post('/posts', [PostController::class, 'store'])->name('posts.store');
 
 
+Route::get('/categories/create', [CategoryController::class, 'create'])->name('categories.create');
+Route::post('/categories', [CategoryController::class, 'store'])->name('categories.store');
 
 
 

@@ -1,6 +1,6 @@
 @extends('layout')
 
-@section('title', 'Blog')
+@section('title', 'Home')
 
 @section('content')
 <section class="search__bar">
