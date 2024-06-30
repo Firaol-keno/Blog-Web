@@ -11,8 +11,14 @@ class PageController extends Controller
 
 public function index()
 {
-    $user = Auth::profile();
-    return view('your-view', compact('user'));
+    $user = Auth::user();
+    return view('/', compact('user'));
+}
+
+public function logout()
+{
+    Auth::logout();
+    return redirect('/');
 }
 
 }

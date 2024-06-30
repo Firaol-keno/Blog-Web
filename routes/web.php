@@ -8,9 +8,22 @@ use App\Http\Controllers\SignupController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\BlogController;
+
+use App\Http\Controllers\Auth\AuthenticatedSessionController;
+
+Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])
+    ->name('logout');
+
+
+
 //Route::get('/', function () {
    //return view('welcome')
 //});
+
+Route::get('/index', [HomeController::class, 'home']);
+
+Route::get('/', [BlogController::class, 'blog']);
 
 Route::get('/', [PageController::class, 'index']);
 
@@ -23,6 +36,11 @@ Route::get('/categoryPosts/{id}', [CategoryController::class, 'show']);
 Route::get('/signin', [SigninController::class, 'index'])->name('signin');
 Route::post('/signin', [SigninController::class, 'login']);
 //Route::post('/logout', [SigninController::class, 'logout'])->name('logout');
+
+Route::get('/login', function () {
+   Auth::login();
+    return redirect('/'); // Redirect to home page
+})->name('login');
 
 
 Route::get('/signup', [SignupController::class, 'index']);

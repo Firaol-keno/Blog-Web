@@ -3,18 +3,17 @@
 namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\profile;
-use Illuminate\Support\Facades\Auth;
 use App\Models\Post;
 use App\Models\Category;
+use Illuminate\Support\Facades\Auth;
+
 class HomeController extends Controller
 {
-    public function index()
-{
-    $featuredPost = Post::where('is_featured', true)->with('category', 'user')->first();
-    $posts = Post::with('category', 'user')->orderBy('created_at', 'desc')->get();
-    $categories = Category::all();
+    public function home() {
+        $featured = Post::where('is_featured', 1)->first();
+        $posts = Post::latest()->take(9)->get();
+        $categories = Category::all();
 
-    return view('home', compact('featuredPost', 'posts', 'categories'));
-}
-
+        return view('home', compact('featured', 'posts', 'categories'));
+    }
 }

@@ -7,7 +7,7 @@
   <form class="container search__bar-container" action="">
       <div>
           <i class="uil uil-search"></i>
-          <input type="search" name="" placeholder="Search">
+          <input type="search" name="search" placeholder="Search">
       </div>
       <button type="submit" class="btn">Go</button>
   </form>
@@ -16,47 +16,42 @@
 
 <section class="posts">
   <div class="container posts__container">
+      @foreach($posts as $post)
       <article class="post">
           <div class="post__thumbnail">
-              <img src="{{ asset('images/blog2.jpg') }}">
+              <img src="{{ asset('images/' . $post->thumbnail) }}" alt="{{ $post->title }}">
           </div>
           <div class="post__info">
-              <a href="#" class="category__button">Wild Life</a>
+              <a href="{{ url('/category/' . $post->category->id) }}" class="category__button">
+                  {{ $post->category->title }}
+              </a>
               <h3 class="post__title">
-                  <a href="#">The post</a>
+                  <a href="{{ url('/post/' . $post->id) }}">{{ $post->title }}</a>
               </h3>
               <p class="post__body">
-                  The post bla bla bla
-                  The post bla bla bla
-                  The post bla bla bla
-                  The post bla bla bla 
+                  {{ Str::limit($post->body, 150) }}
               </p>
               <div class="post__author">
                   <div class="post__author-avatar">
-                      <img src="{{ asset('images/avatar3.jpg') }}">
+                      <img src="{{ asset('images/' . optional($post->profile)->avatar) }}" alt="{{ $post->profile->firstname }}">
                   </div>
                   <div class="post__author-info">
-                      <h5>By: John Mills</h5>
-                      <small>June 13, 2022 - 10:34</small>
+                      <h5>By: {{ $post->profile->firstname }} {{ $post->profile->lastname }}</h5>
+                      <small>{{ $post->created_at->format('M d, Y - H:i') }}</small>
                   </div>
               </div>
           </div>
       </article>
-
-      <!-- Repeat for other posts -->
-      
+      @endforeach
   </div>
 </section>
 <!--=================== End of posts  =======================-->
 
 <section class="category__buttons">
   <div class="container category__buttons-container">
-      <a href="#" class="category__button">Art</a>
-      <a href="#" class="category__button">Wild</a>
-      <a href="#" class="category__button">Travel</a>
-      <a href="#" class="category__button">Science & Technology</a>
-      <a href="#" class="category__button">Food</a>
-      <a href="#" class="category__button">Musics</a>
+      @foreach($categories as $category)
+      <a href="{{ url('/category/' . $category->id) }}" class="category__button">{{ $category->title }}</a>
+      @endforeach
   </div>
 </section>
 <!--====================   End of category buttons ================-->

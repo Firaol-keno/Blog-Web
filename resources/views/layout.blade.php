@@ -14,7 +14,7 @@
   <title>@yield('title')</title>
 </head>
 <body>
-  @include('partials.nav')
+  @include('partials.nav', ['user' => Auth::user()])
   
   <main>
     @yield('content')

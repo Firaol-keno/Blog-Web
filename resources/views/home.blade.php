@@ -1,73 +1,75 @@
 @extends('layout')
 
-@section('title', 'Blog')
-
 @section('content')
+<!-- Featured Post Section -->
+@if($featured)
 <section class="featured">
     <div class="container featured__container">
-        @if($featuredPost)
-            <div class="post__thumbnail">
-                <img src="{{ asset($featuredPost->thumbnail) }}">
-            </div>
-            <div class="post__info">
-                <a href="{{ url('/categoryPosts', $featuredPost->category->id) }}" class="category__button">
-                    {{ $featuredPost->category->title }}
-                </a>
-                <h2 class="post__title">
-                    <a href="{{ url('/post', $featuredPost->id) }}">{{ $featuredPost->title }}</a>
-                </h2>
-                <p class="post__body">{{ Str::limit($featuredPost->body, 150) }}</p>
-                <div class="post__author">
-                    <div class="post__author-avatar">
-                        <img src="{{ asset($featuredPost->user->avatar) }}">
-                    </div>
-                    <div class="post__author-info">
-                        <h5>BY: {{ $featuredPost->user->firstname }} {{ $featuredPost->user->lastname }}</h5>
-                        <small>{{ $featuredPost->created_at->format('F d, Y - H:i') }}</small>
-                    </div>
+        <div class="post__thumbnail">
+            <img src="{{ asset('images/' . $featured->thumbnail) }}" alt="{{ $featured->title }}">
+        </div>
+        <div class="post__info">
+            <a href="{{ url('/category/' . $featured->category->id) }}" class="category__button">
+                {{ $featured->category->title }}
+            </a>
+            <h2 class="post__title">
+                <a href="{{ url('/post/' . $featured->id) }}">{{ $featured->title }}</a>
+            </h2>
+            <p class="post__body">{{ Str::limit($featured->body, 300) }}</p>
+            <div class="post__author">
+                <div class="post__author-avatar">
+                    <img src="{{ asset('images/' . optional($featured->profile)->avatar) }}" alt="pp">
+                </div>
+                <div class="post__author-info">
+                    <h5>By: FN LN</h5>
+                    <small>{{ $featured->created_at->format('M d, Y - H:i') }}</small>
                 </div>
             </div>
-        @endif
+        </div>
     </div>
 </section>
+@endif
+<!-- End of Featured Post Section -->
 
+<!-- Posts Section -->
 <section class="posts">
     <div class="container posts__container">
         @foreach($posts as $post)
-            <article class="post">
-                <div class="post__thumbnail">
-                    <img src="{{ asset($post->thumbnail) }}">
-                </div>
-                <div class="post__info">
-                    <a href="{{ url('/categoryPosts', $post->category->id) }}" class="category__button">
-                        {{ $post->category->title }}
-                    </a>
-                    <h3 class="post__title">
-                        <a href="{{ url('/post', $post->id) }}">{{ $post->title }}</a>
-                    </h3>
-                    <p class="post__body">{{ Str::limit($post->body, 100) }}</p>
-                    <div class="post__author">
-                        <div class="post__author-avatar">
-                            <img src="{{ asset($post->user->avatar) }}">
-                        </div>
-                        <div class="post__author-info">
-                            <h5>By: {{ $post->user->firstname }} {{ $post->user->lastname }}</h5>
-                            <small>{{ $post->created_at->format('F d, Y - H:i') }}</small>
-                        </div>
+        <article class="post">
+            <div class="post__thumbnail">
+                <img src="{{ asset('images/' . $post->thumbnail) }}" alt="{{ $post->title }}">
+            </div>
+            <div class="post__info">
+                <a href="{{ url('/category') }}" class="category__button">
+                   Art
+                </a>
+                <h3 class="post__title">
+                    <a href="{{ url('/post/' . $post->id) }}">{{ $post->title }}</a>
+                </h3>
+                <p class="post__body">{{ Str::limit($post->body, 150) }}</p>
+                <div class="post__author">
+                    <div class="post__author-avatar">
+                        <img src="{{ asset('images/' . optional($post->profile)->avatar) }}" alt="UI">
+                    </div>
+                    <div class="post__author-info">
+                        <h5>By: FN LN</h5>
+                        <small>{{ $post->created_at->format('M d, Y - H:i') }}</small>
                     </div>
                 </div>
-            </article>
+            </div>
+        </article>
         @endforeach
     </div>
 </section>
+<!-- End of Posts Section -->
 
+<!-- Category Buttons Section -->
 <section class="category__buttons">
     <div class="container category__buttons-container">
         @foreach($categories as $category)
-            <a href="{{ url('/categoryPosts', $category->id) }}" class="category__button">
-                {{ $category->title }}
-            </a>
+        <a href="{{ url('/category/' . $category->id) }}" class="category__button">{{ $category->title }}</a>
         @endforeach
     </div>
 </section>
+<!-- End of Category Buttons Section -->
 @endsection
