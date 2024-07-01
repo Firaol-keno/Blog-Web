@@ -10,7 +10,11 @@ class DashboardController extends Controller
 {
     public function index()
     {
-        return view('dashboard.index');
+         $currentUser = Auth::user();
+        $posts = Post::where('user_id', $currentUser->id)->orderBy('id', 'DESC')->get();
+        $categories = Category::all();
+
+        return view('dashboard.index', compact('posts', 'categories'));
     }
 
     public function addPost()
@@ -49,4 +53,6 @@ class DashboardController extends Controller
         //return view('dashboard.manage-categories', compact('categories'));
         return view('dashboard.manage-categories');
     }
+
+    
 }

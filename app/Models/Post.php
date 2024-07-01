@@ -15,13 +15,13 @@ class Post extends Model
 
     protected $fillable = ['user_id', 'category_id', 'title', 'body', 'is_featured', 'thumbnail'];
 
-    public function profile()
-{
-    return $this->belongsTo(Profile::class, 'user_id');
-}
+    public function user()
+    {
+        return $this->belongsTo(Profile::class, 'user_id');
+    }
 
-public function category()
-{
-    return $this->belongsTo(Category::class);
-}
-}
+    public function category()
+    {
+        return $this->belongsTo(Category::class);
+    }
+    }

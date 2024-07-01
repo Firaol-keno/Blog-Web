@@ -40,9 +40,9 @@
                 <img src="{{ asset('images/' . $post->thumbnail) }}" alt="{{ $post->title }}">
             </div>
             <div class="post__info">
-                <a href="{{ url('/category') }}" class="category__button">
-                   Art
-                </a>
+                <a href="{{ route('category.posts', ['id' => $post->category->id]) }}" 
+                    class="category__button">{{ $post->category->title }}</a>
+                
                 <h3 class="post__title">
                     <a href="{{ url('/post/' . $post->id) }}">{{ $post->title }}</a>
                 </h3>
@@ -61,9 +61,6 @@
         @endforeach
     </div>
 </section>
-<!-- End of Posts Section -->
-
-<!-- Category Buttons Section -->
 <section class="category__buttons">
     <div class="container category__buttons-container">
         @foreach($categories as $category)
@@ -71,5 +68,5 @@
         @endforeach
     </div>
 </section>
-<!-- End of Category Buttons Section -->
+
 @endsection

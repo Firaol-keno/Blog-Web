@@ -8,7 +8,7 @@ use App\Models\Category;
 use Illuminate\Http\Request;
 
 class PostController extends Controller
-{
+{    
     public function create()
     {
         $categories = Category::all(); // Fetch categories
@@ -53,6 +53,20 @@ class PostController extends Controller
         $category = Category::findOrFail($id);
         $posts = Post::where('category_id', $id)->orderBy('created_at', 'desc')->get();
         return view('category.posts', compact('category', 'posts'));
+    }
+
+    public function index()
+    {
+        $featured = Post::with(['user', 'category'])
+                        ->where('is_featured', 1)
+                        ->first();
+
+        $posts = Post::with(['user', 'category'])
+                     ->orderBy('created_at', 'desc')
+                     ->limit(9)
+                     ->get();
+
+        return view('home', compact('featured', 'posts'));
     }
 
 }

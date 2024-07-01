@@ -7,10 +7,12 @@ use App\Models\Post;
 use App\Models\Category;
 class BlogController extends Controller
 {
-    public function blog(){
+    public function blog()
+    {
         $posts = Post::latest()->take(9)->get();
         $categories = Category::all();
 
         return view('blog', compact('posts', 'categories'));
     }
+    
 }

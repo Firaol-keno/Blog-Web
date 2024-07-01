@@ -9,7 +9,9 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\BlogController;
-
+use App\Http\Controllers\EditPostController;
+use App\Http\Controllers\ManageUsersController;
+use App\Http\Controllers\ManageCategoryController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 
 Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])
@@ -23,14 +25,14 @@ Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])
 
 Route::get('/index', [HomeController::class, 'home']);
 
-Route::get('/', [BlogController::class, 'blog']);
+Route::get('/blog', [BlogController::class, 'blog']);
 
 Route::get('/', [PageController::class, 'index']);
 
 
 Route::get('/', [PostController::class, 'index']);
 Route::get('/post/{id}', [PostController::class, 'show']);
-Route::get('/categoryPosts/{id}', [CategoryController::class, 'show']);
+Route::get('/category/{id}', [CategoryController::class, 'index'])->name('category.posts');
 
 
 Route::get('/signin', [SigninController::class, 'index'])->name('signin');
@@ -49,12 +51,34 @@ Route::post('/signup', [SignupController::class, 'register'])->name('signup');
 Route::middleware(['auth'])->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
     Route::get('/dashboard/add-post', [DashboardController::class, 'addPost'])->name('dashboard.add-post');
-    Route::get('/dashboard/manage-posts', [DashboardController::class, 'managePosts'])->name('dashboard.manage-posts');
     Route::get('/dashboard/add-user', [DashboardController::class, 'addUser'])->name('dashboard.add-user')->middleware('is_admin');
-    Route::get('/dashboard/manage-users', [DashboardController::class, 'manageUsers'])->name('dashboard.manage-users');
     Route::get('/dashboard/add-category', [DashboardController::class, 'addCategory'])->name('dashboard.add-category');
-    Route::get('/dashboard/manage-categories', [DashboardController::class, 'manageCategories'])->name('dashboard.manage-categories')->middleware('is_admin');
+
+    Route::get('/dashboard/edit-user/{id}', [ManageUsersController::class, 'edit'])->name('dashboard.edit-user');
+    Route::put('/dashboard/edit-user/{id}', [ManageUsersController::class, 'update'])->name('dashboard.update-user');
+    Route::get('/dashboard/manage-users', [ManageUsersController::class, 'index'])->name('dashboard.manage-users');
+    Route::delete('/dashboard/delete-user/{id}', [ManageUsersController::class, 'destroy'])->name('dashboard.delete-user');
+    
+    
+    Route::get('/dashboard/manage-categories', [ManageCategoryController::class, 'index'])->name('dashboard.manage-categories');
+    Route::get('/dashboard/edit-category/{id}', [ManageCategoryController::class, 'edit'])->name('dashboard.edit-category');
+    Route::put('/dashboard/edit-category/{id}', [ManageCategoryController::class, 'update'])->name('dashboard.update-category');    
+    Route::delete('/dashboard/delete-category/{id}', [ManageCategoryController::class, 'destroy'])->name('dashboard.delete-category');
+
+    Route::get('/dashboard/edit-post/{id}', [EditPostController::class, 'edit'])->name('dashboard.edit-post');
+    Route::post('/dashboard/edit-post/{id}', [EditPostController::class, 'update'])->name('dashboard.update-post');
+    Route::delete('/dashboard/delete-post/{id}', [EditPostController::class, 'destroy'])->name('dashboard.delete-post');
 });
+
+
+
+
+
+
+
+
+
+
 
 Route::post('logout', [AuthenticatedSessionController::class, 'destroy'])
                 ->name('logout');
@@ -72,10 +96,10 @@ Route::get('/blog', function () {
 })->name('blog');
 
 
-// routes/web.php
-
+//Route::get('/index', [PostController::class, 'index'])->name('home');
 Route::get('/posts/create', [PostController::class, 'create'])->name('posts.create');
 Route::post('/posts', [PostController::class, 'store'])->name('posts.store');
+Route::post('/posts/edit', [PostController::class, 'edit'])->name('posts.edit');
 
 
 Route::get('/categories/create', [CategoryController::class, 'create'])->name('categories.create');

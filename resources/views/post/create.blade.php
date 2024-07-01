@@ -1,4 +1,3 @@
-<!-- resources/views/posts/create.blade.php -->
 @extends('layout')
 
 @section('content')
@@ -23,11 +22,11 @@
       @csrf
       <input type="text" name="title" placeholder="Title" value="{{ old('title') }}">
       <select name="category_id">
-        <option value="1">Travel</option>
-        <option value="2">Art</option>
-        <option value="3">Science & Technology</option>
-        <option value="4">Food</option>
-        <option value="5">Music</option>
+        @foreach($categories as $category)
+          <option value="{{ $category->id }}" {{ old('category_id') == $category->id ? 'selected' : '' }}>
+            {{ $category->title }}
+          </option>
+        @endforeach
       </select>
       <textarea name="body" rows="10" placeholder="Body">{{ old('body') }}</textarea>
       <div class="form__control inline">
@@ -39,7 +38,7 @@
          <input type="file" id="thumbnail" name="thumbnail">
        </div>
         <button type="submit" class="btn">Add Post</button>
-      </div>
     </form>
+  </div>
 </section> 
 @endsection

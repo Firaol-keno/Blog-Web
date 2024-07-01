@@ -26,4 +26,12 @@ class CategoryController extends Controller
 
         return redirect()->route('categories.create')->with('success', 'Category created successfully.');
     }
+
+    public function index($id)
+    {
+        $category = Category::with('posts.user')->findOrFail($id);
+        $posts = $category->posts;
+
+        return view('category.posts', compact('category', 'posts'));
+    }
 }

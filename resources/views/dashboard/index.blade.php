@@ -3,17 +3,19 @@
 @section('content')
 <div class="container dashboard__container">
     <button id="show__sidebar-btn" class="sidebar__toggle">
-        <i class="uil uil-angle-right-b"></i></button>
-    <button id="show__sidebar-btn" class="sidebar__toggle">
-        <i class="uil uil-angle-left-b"></i></button>
+        <i class="uil uil-angle-right-b"></i>
+    </button>
+    <button id="hide__sidebar-btn" class="sidebar__toggle">
+        <i class="uil uil-angle-left-b"></i>
+    </button>
     <aside>
         <ul>
             <li>
-                <a href="{{ route('dashboard.add-post') }}"><i class="uil uil-pen"></i>
+                <a href="{{ route('posts.create') }}"><i class="uil uil-pen"></i>
                 <h5>Add Post</h5></a>
             </li>
             <li>
-                <a href="{{ route('dashboard.manage-posts') }}"><i class="uil uil-postcard"></i>
+                <a href="{{ route('dashboard') }}"><i class="uil uil-postcard"></i>
                 <h5>Manage Posts</h5></a>
             </li>
             @if(Auth::user()->is_admin)
@@ -38,39 +40,39 @@
     </aside>
     <main>
         <h2>Manage Posts</h2>
-       <table>
-        <thead>
-          <tr>
-            <th>Title</th>
-            <th>Category</th>
-            <th>Edit</th>
-            <th>Delete</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>bla bla bla bla bla bla bla bla </td>
-            <td>Wild Life</td>
-            <td><a href="editPost.html" class="btn sm">Edit</a></td>
-            <td><a href="deleteCategory.html" class="btn sm danger">
-             Delete</a></td>
-          </tr>
-          <tr>
-            <td>la la la la la la la la la la la ala</td>
-            <td>Wild Life</td>
-            <td><a href="editPost.html" class="btn sm">Edit</a></td>
-            <td><a href="deleteCategory.html" class="btn sm danger">
-             Delete</a></td>
-          </tr> 
-          <tr>
-            <td>la la la la la la la la la la la ala</td>
-            <td>Wild Life</td>
-            <td><a href="editPost.html" class="btn sm">Edit</a></td>
-            <td><a href="deleteCategory.html" class="btn sm danger">
-             Delete</a></td>
-          </tr>                    
-        </tbody>
-      </table>
+        @if($posts->count() > 0)
+        <table>
+            <thead>
+                <tr>
+                    <th>Title</th>
+                    <th>Category</th>
+                    <th>Edit</th>
+                    <th>Delete</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach($posts as $post)
+<tr>
+    <td>{{ $post->title }}</td>
+    <td>{{ $post->category->title }}</td>
+    <td><a href="{{ route('dashboard.edit-post', $post->id) }}" class="btn sm">Edit</a></td>
+    <td>
+        <form action="{{ route('dashboard.delete-post', $post->id) }}" method="POST" style="display: inline;">
+            @csrf
+            @method('DELETE')
+            <button type="submit" class="btn sm danger" onclick="return confirm('Are you sure you want to delete this post?')">Delete</button>
+        </form>
+    </td>
+</tr>
+@endforeach
+
+            </tbody>
+        </table>
+        @else
+        <div class="alert__message error">
+            <p>No Posts found</p>
+        </div>
+        @endif
     </main>
 </div>
 @endsection

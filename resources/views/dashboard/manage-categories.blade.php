@@ -38,31 +38,27 @@
             </ul>
         </aside>
         <main>
-            <h2>Manage Users</h2>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Name</th>
-                        <th>Username</th>
-                        <th>Edit</th>
-                        <th>Delete</th>
-                        <th>Admin</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach($users as $user)
-                    <tr>
-                        <td>{{ $user->firstname }} {{ $user->lastname }}</td>
-                        <td>{{ $user->username }}</td>
-                        <td><a href="{{ route('dashboard.edit-user', $user->id) }}" class="btn sm">Edit</a></td>
-                        <td>
-                            <form action="{{ route('dashboard.delete-user', $user->id) }}" method="POST" style="display: inline;">
+   <h2>Manage Categories</h2>
+   <table>
+       <thead>
+            <tr>
+              <th>Title</th>
+              <th>Edit</th>
+              <th>Delete</th>
+            </tr>
+       </thead>
+       <tbody>
+           @foreach($categories as $category)
+           <tr>          
+               <td>{{ $category->title }}</td>
+              <td><a href="{{ route('dashboard.edit-category', $category->id) }}" class="btn sm">Edit</a></td>
+                <td>
+                            <form action="{{ route('dashboard.delete-category', $category->id) }}" method="POST" style="display: inline;">
                                 @csrf
                                 @method('DELETE')
                                 <button type="submit" class="btn sm danger" onclick="return confirm('Are you sure you want to delete this user?')">Delete</button>
                             </form>
                         </td>
-                        <td>{{ $user->is_admin ? 'Yes' : 'No' }}</td>
                     </tr>
                     @endforeach
                 </tbody>
