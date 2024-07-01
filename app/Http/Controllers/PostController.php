@@ -12,7 +12,7 @@ class PostController extends Controller
     public function create()
     {
         $categories = Category::all(); // Fetch categories
-        return view('posts.create', compact('categories'));
+        return view('post.create', compact('categories'));
     }
 
     public function store(Request $request)
@@ -39,7 +39,7 @@ class PostController extends Controller
 
         $post->save();
 
-        return redirect()->route('posts.create')->with('success', 'Post created successfully.');
+        return redirect()->route('post.create')->with('success', 'Post created successfully.');
     }
 
     public function show($id)
@@ -48,6 +48,8 @@ class PostController extends Controller
         return view('post.show', compact('post'));
     }
 
+
+    //posts that are in the same category displayed
     public function categoryPosts($id)
     {
         $category = Category::findOrFail($id);

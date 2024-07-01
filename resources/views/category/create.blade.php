@@ -14,7 +14,7 @@
         <p>{{ session('success') }}</p>
       </div>
     @endif
-    <form action="{{ route('categories.store') }}" method="POST">
+    <form action="{{ route('category.store') }}" method="POST">
       @csrf
       <input type="text" name="title" placeholder="Title" value="{{ old('title') }}">
       <textarea name="description" rows="4" placeholder="Description">{{ old('description') }}</textarea>

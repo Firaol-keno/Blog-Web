@@ -12,7 +12,7 @@
         <aside>
             <ul>
                 <li>
-                    <a href="{{ route('posts.create') }}"><i class="uil uil-pen"></i>
+                    <a href="{{ route('dashboard.add-post') }}"><i class="uil uil-pen"></i>
                     <h5>Add Post</h5></a>
                 </li>
                 <li>

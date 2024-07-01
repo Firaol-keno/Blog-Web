@@ -14,7 +14,7 @@ class EditPostController extends Controller
         $post = Post::findOrFail($id);
         $categories = Category::all();
 
-        return view('dashboard.edit-post', compact('post', 'categories'));
+        return view('post.edit-post', compact('post', 'categories'));
     }
 
     public function update(Request $request, $id)

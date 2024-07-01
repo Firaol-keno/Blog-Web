@@ -4,7 +4,7 @@
 <section class="form__section">
     <div class="container form__section-container">
         <h2>Edit Post</h2>
-        <form action="{{ route('dashboard.update-post', $post->id) }}" method="POST" enctype="multipart/form-data">
+        <form action="{{ route('post.update-post', $post->id) }}" method="POST" enctype="multipart/form-data">
             @csrf
             <input type="text" name="title" placeholder="Title" value="{{ old('title', $post->title) }}" required>
             

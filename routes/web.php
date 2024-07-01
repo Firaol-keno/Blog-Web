@@ -11,6 +11,7 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\EditPostController;
 use App\Http\Controllers\ManageUsersController;
+use App\Http\Controllers\PageController;
 use App\Http\Controllers\ManageCategoryController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 
@@ -28,12 +29,6 @@ Route::get('/index', [HomeController::class, 'home']);
 Route::get('/blog', [BlogController::class, 'blog']);
 
 Route::get('/', [PageController::class, 'index']);
-
-
-Route::get('/', [PostController::class, 'index']);
-Route::get('/post/{id}', [PostController::class, 'show']);
-Route::get('/category/{id}', [CategoryController::class, 'index'])->name('category.posts');
-
 
 Route::get('/signin', [SigninController::class, 'index'])->name('signin');
 Route::post('/signin', [SigninController::class, 'login']);
@@ -65,9 +60,9 @@ Route::middleware(['auth'])->group(function () {
     Route::put('/dashboard/edit-category/{id}', [ManageCategoryController::class, 'update'])->name('dashboard.update-category');    
     Route::delete('/dashboard/delete-category/{id}', [ManageCategoryController::class, 'destroy'])->name('dashboard.delete-category');
 
-    Route::get('/dashboard/edit-post/{id}', [EditPostController::class, 'edit'])->name('dashboard.edit-post');
-    Route::post('/dashboard/edit-post/{id}', [EditPostController::class, 'update'])->name('dashboard.update-post');
-    Route::delete('/dashboard/delete-post/{id}', [EditPostController::class, 'destroy'])->name('dashboard.delete-post');
+    Route::get('/post/edit-post/{id}', [EditPostController::class, 'edit'])->name('post.edit-post');
+    Route::post('/post/edit-post/{id}', [EditPostController::class, 'update'])->name('post.update-post');
+    Route::delete('/post/delete-post/{id}', [EditPostController::class, 'destroy'])->name('post.delete-post');
 });
 
 
@@ -97,15 +92,16 @@ Route::get('/blog', function () {
 
 
 //Route::get('/index', [PostController::class, 'index'])->name('home');
-Route::get('/posts/create', [PostController::class, 'create'])->name('posts.create');
-Route::post('/posts', [PostController::class, 'store'])->name('posts.store');
-Route::post('/posts/edit', [PostController::class, 'edit'])->name('posts.edit');
+Route::get('/posts/create', [PostController::class, 'create'])->name('post.create');
+Route::post('/posts', [PostController::class, 'store'])->name('post.store');
+Route::post('/post/edit', [PostController::class, 'edit'])->name('post.edit');
 
+Route::get('/category/{id}', [CategoryController::class, 'posts'])->name('category.posts');
+Route::get('/category/create', [CategoryController::class, 'create'])->name('category.create');
+Route::post('/category', [CategoryController::class, 'store'])->name('category.store');
 
-Route::get('/categories/create', [CategoryController::class, 'create'])->name('categories.create');
-Route::post('/categories', [CategoryController::class, 'store'])->name('categories.store');
-
-
+Route::get('/', [PostController::class, 'index']);
+Route::get('/post/{id}', [PostController::class, 'show']);
 
 
 

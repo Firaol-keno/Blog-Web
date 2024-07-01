@@ -10,7 +10,7 @@
             @if($user)
                 <li class="nav__profile">
                     <div class="avatar">
-                        <img src="{{ asset('images/' . $user->avatar) }}" alt="User Avatar" />
+                        <img src="{{ asset('avatars/' . $user->avatar) }}" alt="User Avatar" />
                     </div>
                     <ul>
                         <li><a href="{{ url('/dashboard') }}">Dashboard</a></li>

@@ -12,13 +12,12 @@
         <button type="submit" class="btn">Go</button>
     </form>
 </section>
-
 <section class="posts">
     <div class="container posts__container">
         @foreach($posts as $post)
         <article class="post">
             <div class="post__thumbnail">
-                <img src="{{ asset('images/' . $post->thumbnail) }}" alt="{{ $post->title }}">
+                <img src="{{ asset('thumbnails/' . $post->thumbnail) }}" alt="{{ $post->title }}">
             </div>
             <div class="post__info">
                 <a href="{{ url('/category/' . $post->category->id) }}" class="category__button">
@@ -32,10 +31,10 @@
                 </p>
                 <div class="post__author">
                     <div class="post__author-avatar">
-                        <img src="{{ asset('images/' . optional($post->profile)->avatar) }}" alt="{{ $post->profile->firstname }}">
+                        <img src="{{ asset('avatars/' . $post->user->avatar) }}" alt="{{ $post->user->firstname }}">
                     </div>
                     <div class="post__author-info">
-                        <h5>By: {{ $post->profile->firstname }} {{ $post->profile->lastname }}</h5>
+                        <h5>By: {{ $post->user->firstname }} {{ $post->user->lastname }}</h5>
                         <small>{{ $post->created_at->format('M d, Y - H:i') }}</small>
                     </div>
                 </div>

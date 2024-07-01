@@ -6,7 +6,8 @@
 <section class="featured">
     <div class="container featured__container">
         <div class="post__thumbnail">
-            <img src="{{ asset('images/' . $featured->thumbnail) }}" alt="{{ $featured->title }}">
+            <img src="{{ asset('thumbnails/' . $featured->thumbnail) }}" alt="{{ $featured->title }}">
+            
         </div>
         <div class="post__info">
             <a href="{{ url('/category/' . $featured->category->id) }}" class="category__button">
@@ -18,11 +19,10 @@
             <p class="post__body">{{ Str::limit($featured->body, 300) }}</p>
             <div class="post__author">
                 <div class="post__author-avatar">
-                    <img src="{{ asset('images/' . optional($featured->profile)->avatar) }}" alt="pp">
+                    <img src="{{ asset('avatars/' . $featured->user->avatar) }}" alt="pp">
                 </div>
                 <div class="post__author-info">
-                    <h5>By: FN LN</h5>
-                    <small>{{ $featured->created_at->format('M d, Y - H:i') }}</small>
+                    <h5>By: {{$featured->user->firstname}} {{$featured->user->lastname}}</h5>
                 </div>
             </div>
         </div>
@@ -37,7 +37,7 @@
         @foreach($posts as $post)
         <article class="post">
             <div class="post__thumbnail">
-                <img src="{{ asset('images/' . $post->thumbnail) }}" alt="{{ $post->title }}">
+                <img src="{{ asset('thumbnails/' . $post->thumbnail) }}" alt="{{ $post->title }}">
             </div>
             <div class="post__info">
                 <a href="{{ route('category.posts', ['id' => $post->category->id]) }}" 
@@ -49,10 +49,10 @@
                 <p class="post__body">{{ Str::limit($post->body, 150) }}</p>
                 <div class="post__author">
                     <div class="post__author-avatar">
-                        <img src="{{ asset('images/' . optional($post->profile)->avatar) }}" alt="UI">
+                        <img src="{{ asset('avatars/' . $post->user->avatar) }}" alt="UI">
                     </div>
                     <div class="post__author-info">
-                        <h5>By: FN LN</h5>
+                        <h5>By: {{$post->user->firstname}} {{$post->user->lastname}}</h5>
                         <small>{{ $post->created_at->format('M d, Y - H:i') }}</small>
                     </div>
                 </div>
@@ -68,5 +68,4 @@
         @endforeach
     </div>
 </section>
-
 @endsection

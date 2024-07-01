@@ -7,16 +7,15 @@
   <div class="alert__message error"> 
     <p>This is an error message</p>
   </div>
-  <form action="{{ route('posts.store') }}" method="POST" enctype="multipart/form-data">
+  <form action="{{ route('post.store') }}" method="POST" enctype="multipart/form-data">
     @csrf
     <input type="text"  name="title" placeholder="Title">
-    <select name="category">
-      <option value="1">Travel</option>
-      <option value="1">Art</option>
-      <option value="1">Science & Technology</option>
-      <option value="1">Food</option>
-      <option value="1">Music</option>
-      <option value="1">Sport</option>
+    <select name="category_id">
+      @foreach($categories as $category)
+        <option value="{{ $category->id }}" {{ old('category_id') == $category->id ? 'selected' : '' }}>
+          {{ $category->title }}
+        </option>
+      @endforeach
     </select>
     <textarea name="body" rows="10" placeholder="Body"></textarea>
     <div class="form__control inline">

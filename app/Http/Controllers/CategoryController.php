@@ -9,7 +9,7 @@ class CategoryController extends Controller
 {
     public function create()
     {
-        return view('categories.create');
+        return view('category.create');
     }
 
     public function store(Request $request)
@@ -24,10 +24,10 @@ class CategoryController extends Controller
             'description' => $request->description,
         ]);
 
-        return redirect()->route('categories.create')->with('success', 'Category created successfully.');
+        return redirect()->route('dashboard.add-category')->with('success', 'Category created successfully.');
     }
 
-    public function index($id)
+    public function posts($id)
     {
         $category = Category::with('posts.user')->findOrFail($id);
         $posts = $category->posts;

@@ -11,7 +11,7 @@ class HomeController extends Controller
 {
     public function home() {
         $featured = Post::where('is_featured', 1)->first();
-        $posts = Post::latest()->take(9)->get();
+        $posts = Post::with('user')->get();
         $categories = Category::all();
 
         return view('home', compact('featured', 'posts', 'categories'));

@@ -19,7 +19,8 @@ class DashboardController extends Controller
 
     public function addPost()
     {
-        return view('dashboard.add-post');
+        $categories = Category::all(); // Fetch categorie
+        return view('dashboard.add-post', compact('categories'));
     }
 
     public function managePosts()

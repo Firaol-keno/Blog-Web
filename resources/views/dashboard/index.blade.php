@@ -11,7 +11,7 @@
     <aside>
         <ul>
             <li>
-                <a href="{{ route('posts.create') }}"><i class="uil uil-pen"></i>
+                <a href="{{ route('dashboard.add-post') }}"><i class="uil uil-pen"></i>
                 <h5>Add Post</h5></a>
             </li>
             <li>
@@ -55,9 +55,9 @@
 <tr>
     <td>{{ $post->title }}</td>
     <td>{{ $post->category->title }}</td>
-    <td><a href="{{ route('dashboard.edit-post', $post->id) }}" class="btn sm">Edit</a></td>
+    <td><a href="{{ route('post.edit-post', $post->id) }}" class="btn sm">Edit</a></td>
     <td>
-        <form action="{{ route('dashboard.delete-post', $post->id) }}" method="POST" style="display: inline;">
+        <form action="{{ route('post.delete-post', $post->id) }}" method="POST" style="display: inline;">
             @csrf
             @method('DELETE')
             <button type="submit" class="btn sm danger" onclick="return confirm('Are you sure you want to delete this post?')">Delete</button>
